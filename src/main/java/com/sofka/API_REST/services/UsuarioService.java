@@ -33,5 +33,8 @@ public class UsuarioService {
             return false;
         }
     }
+    public boolean verificarUsuario(Long id){
+        return usuarioRepository.existsById(id);
+    }
 
 }

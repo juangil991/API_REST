@@ -38,4 +38,14 @@ public class UsuarioController {
             }
             else return "fallo al eliminar usuario";
     }
+    @PutMapping(path = "/{id}")
+    public String  actualizaUsuarioPorId(@PathVariable("id") Long id, @RequestBody UsuarioModel usuario){
+        if(usuarioService.verificarUsuario(id)){
+            UsuarioModel usuarioaux=usuario;
+            usuarioaux.setId(id);
+            usuarioService.guardarUsuario(usuarioaux);
+            return "el usuario con id: "+usuarioaux.getId()+ " fue modificado";
+        }
+        else return "el usuario no existe";
+    }
 }
