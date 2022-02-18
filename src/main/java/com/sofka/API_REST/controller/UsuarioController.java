@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuario")
@@ -22,5 +23,19 @@ public class UsuarioController {
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
         return this.usuarioService.guardarUsuario(usuario);
     }
-
+    @GetMapping(path = "/{id}")
+    public Optional<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id")Long id){
+        return this.usuarioService.obtenerPorId(id);
+    }
+    @GetMapping("/query")
+    public ArrayList<UsuarioModel> obtenerUsuarioPorNombre(@RequestParam("prioridad") Long prioridad){
+        return usuarioService.obtenerPorPrioridad(prioridad);
+    }
+    @DeleteMapping(path = "/{id}")
+    public String eliminarUsuarioPorId(@PathVariable("id") Long id){
+            if(usuarioService.elimiarUsuario(id)){
+                return "se elimino el usuario con id: "+id;
+            }
+            else return "fallo al eliminar usuario";
+    }
 }
